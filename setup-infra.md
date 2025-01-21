@@ -44,7 +44,7 @@ aws configure
 ## KUBECTL
 
 ```bash
-curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+curl -o kubectl https://amazon-eks.s3.ap-south-1.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin
 kubectl version --short --client
@@ -61,18 +61,18 @@ eksctl version
 ## Create EKS CLUSTER
 
 ```bash
-eksctl create cluster --name=Vikash-EKS \
-                      --region=us-west-2 \
-                      --zones=us-west-2a,us-west-2b \
+eksctl create cluster --name=Harsh-EKS \
+                      --region=ap-south-1 \
+                      --zones=ap-south-1a,ap-south-1b \
                       --without-nodegroup
 
 eksctl utils associate-iam-oidc-provider \
-    --region us-west-2 \
-    --cluster Vikash-EKS \
+    --region ap-south-1 \
+    --cluster Harsh-EKS \
     --approve
 
-eksctl create nodegroup --cluster=Vikash-EKS \
-                       --region=us-west-2 \
+eksctl create nodegroup --cluster=Harsh-EKS \
+                       --region=ap-south-1 \
                        --name=node2 \
                        --node-type=t3.medium \
                        --nodes=3 \
@@ -80,7 +80,7 @@ eksctl create nodegroup --cluster=Vikash-EKS \
                        --nodes-max=4 \
                        --node-volume-size=20 \
                        --ssh-access \
-                       --ssh-public-key=mrDevOps \
+                       --ssh-public-key=mumbai_key \
                        --managed \
                        --asg-access \
                        --external-dns-access \
