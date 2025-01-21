@@ -1,0 +1,53 @@
+# Install Helm Chart
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# Add Helm Stable Charts for Your Local Client
+helm repo add stable https://charts.helm.sh/stable
+
+# Add Prometheus Helm Repository
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# Create Prometheus Namespace
+kubectl create namespace prometheus
+kubectl get ns
+
+# Install Prometheus using Helm
+helm install stable prometheus-community/kube-prometheus-stack -n prometheus
+
+# Verify Prometheus installation
+kubectl get pods -n prometheus
+
+# Check the services file (svc) of the Prometheus
+kubectl get svc -n prometheus
+
+# Expose Prometheus and Grafana to the external world through Node Port
+[Important] change it from Cluster IP to NodePort after changing make sure you save the file and open the assigned nodeport to the service.
+kubectl edit svc/stable-kube-prometheus-sta-prometheus -n prometheus
+
+# Verify service
+kubectl get svc -n prometheus
+
+Now, let’s change the SVC file of the Grafana and expose it to the outer world
+kubectl edit svc stable-grafana -n prometheus
+
+# Check grafana service
+kubectl get svc -n prometheus
+
+# Access the Grafana with <public-ip-of-master>:32108 and Prometheus with <public-ip-of-master>:31521
+
+If it shows error like the above image, then port-forward through the below command:
+kubectl port-forward svc/stable-grafana 32108:80 -n prometheus --address 0.0.0.0 &
+kubectl port-forward svc/stable-kube-prometheus-sta-prometheus 31521:9090 -n prometheus --address 0.0.0.0 &
+
+# Get a password for Grafana
+kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+[Note] Username: admin
+
+Now, view the Dashboard in Grafana
+
+Click on Dashboards
+
+Put the Data Source: Prometheus and Namespace: wanderlust and run for last 5 minutes.
+
