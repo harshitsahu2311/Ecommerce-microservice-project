@@ -28,7 +28,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: harshitsahu2311/emailservice:latest
+        image: adijaiswal/emailservice:latest
         ports:
         - containerPort: 8080
         env:
@@ -81,7 +81,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: harshitsahu2311/checkoutservice:latest
+          image: adijaiswal/checkoutservice:latest
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -143,7 +143,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: harshitsahu2311/recommendationservice:latest
+        image: adijaiswal/recommendationservice:latest
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -200,11 +200,11 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: harshitsahu2311/frontend:latest
+          image: adijaiswal/frontend:latest
           ports:
           - containerPort: 8080
           readinessProbe:
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             httpGet:
               path: "/_healthz"
               port: 8080
@@ -212,7 +212,7 @@ spec:
               - name: "Cookie"
                 value: "shop_session-id=x-readiness-probe"
           livenessProbe:
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             httpGet:
               path: "/_healthz"
               port: 8080
@@ -238,8 +238,8 @@ spec:
             value: "adservice:9555"
           # # ENV_PLATFORM: One of: local, gcp, aws, azure, onprem, alibaba
           # # When not set, defaults to "local" unless running in GKE, otherwies auto-sets to gcp
-          - name: ENV_PLATFORM
-            value: "aws"
+          # - name: ENV_PLATFORM
+          #   value: "aws"
           - name: ENABLE_PROFILER
             value: "0"
           # - name: CYMBAL_BRANDING
@@ -297,7 +297,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: harshitsahu2311/paymentservice:latest
+        image: adijaiswal/paymentservice:latest
         ports:
         - containerPort: 50051
         env:
@@ -349,7 +349,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: harshitsahu2311/productcatalogservice:latest
+        image: adijaiswal/productcatalogservice:latest
         ports:
         - containerPort: 3550
         env:
@@ -401,7 +401,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: harshitsahu2311/cartservice:latest
+        image: adijaiswal/cartservice:latest
         ports:
         - containerPort: 7070
         env:
@@ -465,7 +465,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: harshitsahu2311/loadgenerator:latest
+        image: adijaiswal/loadgenerator:latest
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -496,7 +496,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: harshitsahu2311/currencyservice:latest
+        image: adijaiswal/currencyservice:latest
         ports:
         - name: grpc
           containerPort: 7000
@@ -548,7 +548,7 @@ spec:
       serviceAccountName: default
       containers:
       - name: server
-        image: harshitsahu2311/shippingservice:latest
+        image: adijaiswal/shippingservice:latest
         ports:
         - containerPort: 50051
         env:
@@ -654,7 +654,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: harshitsahu2311/adservice:latest
+        image: adijaiswal/adservice:latest
         ports:
         - containerPort: 9555
         env:
