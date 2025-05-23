@@ -200,7 +200,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: vikashashoke/frontend:latest
+          image: adijaiswal/frontend:latest
           ports:
           - containerPort: 8080
           env:
